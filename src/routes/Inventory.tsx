@@ -1,19 +1,17 @@
 import React, { useState } from 'react'
 import Nav from '../Nav'
 import Sidebar from '../nav/Sidebar'
+import CustomerDefault from '../customers/CustomerDefault'
 import CustomerNames from '../customers/CustomerNames'
 import CustomerNewest from '../customers/CustomerNewest'
-import CustomerDefault from '../customers/CustomerDefault'
 
 interface Props {
   // define your props here
 }
 
-const Customers: React.FC<Props> = () => {
-  const sideBarItems = ['Search', 'Newest']
+const Inventory: React.FC<Props> = () => {
+  const sideBarItems = ['Product Details', 'Order']
   const [navigatedPage, setNavigatedPage] = useState('Default')
-
-  console.log(navigatedPage)
 
   return (
     <div>
@@ -27,8 +25,8 @@ const Customers: React.FC<Props> = () => {
           />
           <div className="flex-1">
             {navigatedPage === 'Default' && <CustomerDefault />}
-            {navigatedPage === 'Search' && <CustomerNames />}
-            {navigatedPage === 'Newest' && <CustomerNewest />}
+            {navigatedPage === 'Product Details' && <CustomerNames />}
+            {navigatedPage === 'Order' && <CustomerNewest />}
           </div>
         </div>
       </main>
@@ -36,4 +34,4 @@ const Customers: React.FC<Props> = () => {
   )
 }
 
-export default Customers
+export default Inventory

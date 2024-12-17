@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FaHome } from 'react-icons/fa'
 
 interface Props {
   // define your props here
@@ -11,7 +10,23 @@ const Nav: React.FC<Props> = () => {
   const [sidebar, setSidebar] = useState<string[]>(['Names', 'Values', 'Hello'])
 
   const handleCustomers = () => {
+    setSidebar(['Names', 'Values', 'Hello'])
     navigate('/customers', { state: { sidebarItems: sidebar } })
+  }
+
+  const handleInventory = () => {
+    setSidebar(['Names', 'Values', 'Hello'])
+    navigate('/inventory', { state: { sidebarItems: sidebar } })
+  }
+
+  const handleEmployees = () => {
+    setSidebar(['Names', 'Values', 'Hello'])
+    navigate('/employees', { state: { sidebarItems: sidebar } })
+  }
+
+  const handleLogin = () => {
+    setSidebar(['None'])
+    navigate('/login', { state: { sidebarItems: sidebar } })
   }
 
   return (
@@ -27,12 +42,19 @@ const Nav: React.FC<Props> = () => {
         </div>
 
         {/* Desktop Navbar Links */}
-        <div className="hidden md:flex space-x-20 ">
+        <div className="hidden md:flex space-x-12 ">
           <button className="text-lg hover:underline" onClick={handleCustomers}>
             Customers
           </button>
-          <button className="text-lg hover:underline">Inventory</button>
-          <button className="text-lg hover:underline">Projections</button>
+          <button className="text-lg hover:underline" onClick={handleInventory}>
+            Inventory
+          </button>
+          <button className="text-lg hover:underline" onClick={handleEmployees}>
+            Employees
+          </button>
+          <button className="text-lg hover:underline" onClick={handleLogin}>
+            Login
+          </button>
         </div>
 
         {/* Mobile Hamburger Menu */}
