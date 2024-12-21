@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Nav from '../Nav'
 import Sidebar from '../nav/Sidebar'
-import CustomerDefault from '../customers/CustomerDefault'
-import CustomerNames from '../customers/CustomerNames'
-import CustomerNewest from '../customers/CustomerNewest'
+import InventoryDetails from '../inventory/InventoryDetails'
+import InventoryDefault from '../inventory/InventoryDefault'
+import InventoryOrders from '../inventory/InventoryOrders'
 
 interface Props {
   // define your props here
@@ -23,10 +23,10 @@ const Inventory: React.FC<Props> = () => {
             sideBarItems={sideBarItems}
             setNavigatedPage={setNavigatedPage}
           />
-          <div className="flex-1">
-            {navigatedPage === 'Default' && <CustomerDefault />}
-            {navigatedPage === 'Product Details' && <CustomerNames />}
-            {navigatedPage === 'Order' && <CustomerNewest />}
+          <div className="flex-1 border-l-2 border-black h-full min-h-screen">
+            {navigatedPage === 'Default' && <InventoryDefault />}
+            {navigatedPage === 'Product Details' && <InventoryDetails />}
+            {navigatedPage === 'Order' && <InventoryOrders />}
           </div>
         </div>
       </main>
