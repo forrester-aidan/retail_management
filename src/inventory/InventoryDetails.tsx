@@ -24,16 +24,6 @@ const InventoryDetails: React.FC<Props> = () => {
     setStockItems(currentStorage ? JSON.parse(currentStorage) : stock)
   }, [stockItems])
 
-  const handleSearch = (value: any) => {
-    const filteredItems =
-      value === ''
-        ? stock
-        : stockItems.filter((item: any) =>
-            item.name.toLowerCase().includes(search.toLowerCase()),
-          )
-    setStockItems(filteredItems)
-  }
-
   const handleAdd = () => {
     const item = {
       name: name,
@@ -47,9 +37,21 @@ const InventoryDetails: React.FC<Props> = () => {
     stockItems.push(item)
 
     const storedItems = localStorage.getItem('product-details')
-
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray.push(item)
+    localStorage.setItem('product-details', JSON.stringify(newArray))
+  }
+
+  const handleDelete = (item: any) => {
+    const removalIndex = stockItems.findIndex(
+      (stockItem) => stockItem.name === item.name,
+    )
+
+    stockItems.splice(removalIndex, 1)
+
+    const storedItems = localStorage.getItem('product-details')
+    let newArray = storedItems ? JSON.parse(storedItems) : []
+    newArray = stockItems
     localStorage.setItem('product-details', JSON.stringify(newArray))
   }
 
@@ -65,7 +67,6 @@ const InventoryDetails: React.FC<Props> = () => {
             className="border-2 border-black rounded"
             onChange={(e) => {
               setSearch(e.target.value)
-              handleSearch(e.target.value)
             }}
           />
           <button className="pl-2">
@@ -82,7 +83,13 @@ const InventoryDetails: React.FC<Props> = () => {
         </div>
       </div>
 
-      <InventoryModals stockItems={stockItems} />
+      <InventoryModals
+        items={stockItems.filter((item) =>
+          item.name.toLowerCase().includes(search.toLowerCase()),
+        )}
+        handleDelete={handleDelete}
+        search={search}
+      />
       <div className="flex items-center justify-center">
         <AddProduct
           newItem={newItem}
