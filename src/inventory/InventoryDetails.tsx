@@ -3,6 +3,7 @@ import { FaPlus, FaSearch } from 'react-icons/fa'
 import stock from './InventoryData'
 import InventoryModals from './InventoryModals'
 import AddProduct from './AddProduct'
+import EditProduct from './EditProduct'
 
 interface Props {
   // define your props here
@@ -12,6 +13,16 @@ const InventoryDetails: React.FC<Props> = () => {
   const [search, setSearch] = useState('')
   const [stockItems, setStockItems] = useState(stock)
   const [newItem, setNewItem] = useState(false)
+  const [editItem, setEditItem] = useState(false)
+  const [currentEditItem, setCurrentEditItem] = useState({
+    name: 'Editing...',
+    amount: -1,
+    price: -1,
+    dailySold: -1,
+    netSold: -1,
+    lastOrderDate: 'Editing...',
+  })
+  const [editIndex, setEditIndex] = useState(0)
   const [name, setName] = useState('')
   const [amount, setAmount] = useState(0)
   const [price, setPrice] = useState(0)
@@ -39,6 +50,15 @@ const InventoryDetails: React.FC<Props> = () => {
     const storedItems = localStorage.getItem('product-details')
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray.push(item)
+    localStorage.setItem('product-details', JSON.stringify(newArray))
+  }
+
+  const handleEdit = (editIndex: any) => {
+    stockItems[editIndex] = currentEditItem
+
+    const storedItems = localStorage.getItem('product-details')
+    let newArray = storedItems ? JSON.parse(storedItems) : []
+    newArray = stockItems
     localStorage.setItem('product-details', JSON.stringify(newArray))
   }
 
@@ -88,6 +108,10 @@ const InventoryDetails: React.FC<Props> = () => {
           item.name.toLowerCase().includes(search.toLowerCase()),
         )}
         handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        setCurrentEditItem={setCurrentEditItem}
+        setEditItem={setEditItem}
+        setEditIndex={setEditIndex}
         search={search}
       />
       <div className="flex items-center justify-center">
@@ -103,6 +127,15 @@ const InventoryDetails: React.FC<Props> = () => {
           setNetSold={setNetSold}
           setLastOrderDate={setLastOrderDate}
           handleAdd={handleAdd}
+        />
+      </div>
+      <div className="flex items-center justify-center">
+        <EditProduct
+          editItem={editItem}
+          setEditItem={setEditItem}
+          currentEditItem={currentEditItem}
+          editIndex={editIndex}
+          handleEdit={handleEdit}
         />
       </div>
     </div>
