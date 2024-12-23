@@ -112,7 +112,6 @@ const InventoryDetails: React.FC<Props> = () => {
         setCurrentEditItem={setCurrentEditItem}
         setEditItem={setEditItem}
         setEditIndex={setEditIndex}
-        search={search}
       />
       <div className="flex items-center justify-center">
         <AddProduct

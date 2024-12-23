@@ -13,17 +13,15 @@ interface Props {
   setCurrentEditItem: any
   setEditItem: any
   setEditIndex: any
-  search: string
 }
 
-const ComponentName: React.FC<Props> = ({
+const InventoryModals: React.FC<Props> = ({
   items,
   handleDelete,
   handleEdit,
   setCurrentEditItem,
   setEditItem,
   setEditIndex,
-  search,
 }) => {
   return (
     <>
@@ -81,4 +79,4 @@ const ComponentName: React.FC<Props> = ({
   )
 }
 
-export default ComponentName
+export default InventoryModals
