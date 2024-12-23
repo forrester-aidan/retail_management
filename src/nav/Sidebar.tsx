@@ -7,9 +7,9 @@ interface Props {
 
 const Sidebar: React.FC<Props> = ({ sideBarItems, setNavigatedPage }) => {
   return (
-    <div className="relative flex flex-col pt-10 w-3/12">
+    <div className="relative flex flex-col w-3/12">
       {sideBarItems.map((item) => (
-        <div className="flex-1 flex justify-center max-h-40 min-h-40">
+        <div className="flex-1 flex justify-center items-center max-h-40 min-h-40">
           <p
             className="text-2xl hover:underline hover:cursor-pointer"
             onClick={() => setNavigatedPage(item)}
