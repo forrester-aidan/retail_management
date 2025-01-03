@@ -10,6 +10,7 @@ interface Props {
 }
 
 const InventoryDetails: React.FC<Props> = () => {
+  const [listUpdates, setListUpdates] = useState(false)
   const [search, setSearch] = useState('')
   const [stockItems, setStockItems] = useState(stock)
   const [newItem, setNewItem] = useState(false)
@@ -31,9 +32,12 @@ const InventoryDetails: React.FC<Props> = () => {
   const [lastOrderDate, setLastOrderDate] = useState('')
 
   useEffect(() => {
-    const currentStorage = localStorage.getItem('product-details')
-    setStockItems(currentStorage ? JSON.parse(currentStorage) : stock)
-  }, [stockItems])
+    if (listUpdates) {
+      const currentStorage = localStorage.getItem('product-details')
+      setStockItems(currentStorage ? JSON.parse(currentStorage) : stock)
+      setListUpdates(false)
+    }
+  }, [listUpdates])
 
   const handleAdd = () => {
     const item = {
@@ -51,6 +55,8 @@ const InventoryDetails: React.FC<Props> = () => {
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray.push(item)
     localStorage.setItem('product-details', JSON.stringify(newArray))
+
+    setListUpdates(true)
   }
 
   const handleEdit = (editIndex: any) => {
@@ -60,6 +66,7 @@ const InventoryDetails: React.FC<Props> = () => {
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray = stockItems
     localStorage.setItem('product-details', JSON.stringify(newArray))
+    setListUpdates(true)
   }
 
   const handleDelete = (item: any) => {
@@ -73,6 +80,7 @@ const InventoryDetails: React.FC<Props> = () => {
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray = stockItems
     localStorage.setItem('product-details', JSON.stringify(newArray))
+    setListUpdates(true)
   }
 
   return (

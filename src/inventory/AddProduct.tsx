@@ -24,8 +24,6 @@ interface Props {
 const ComponentName: React.FC<Props> = ({
   newItem,
   setNewItem,
-  stockItems,
-  setStockItems,
   setName,
   setAmount,
   setPrice,

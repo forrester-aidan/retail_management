@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Customers: React.FC<Props> = () => {
-  const sideBarItems = ['Search', 'Newest']
+  const sideBarItems = ['View Transactions', 'Newest']
   const [navigatedPage, setNavigatedPage] = useState('Default')
 
   console.log(navigatedPage)
@@ -27,7 +27,7 @@ const Customers: React.FC<Props> = () => {
           />
           <div className="flex-1">
             {navigatedPage === 'Default' && <CustomerDefault />}
-            {navigatedPage === 'Search' && <CustomerNames />}
+            {navigatedPage === 'View Transactions' && <CustomerNames />}
             {navigatedPage === 'Newest' && <CustomerNewest />}
           </div>
         </div>

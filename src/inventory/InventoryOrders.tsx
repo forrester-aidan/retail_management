@@ -9,6 +9,7 @@ interface Props {
 }
 
 const InventoryOrders: React.FC<Props> = () => {
+  const [listUpdates, setListUpdates] = useState(false)
   const [orderItems, setOrderItems] = useState(orders)
   const [newOrder, setNewOrder] = useState(false)
   const [name, setName] = useState('')
@@ -17,9 +18,12 @@ const InventoryOrders: React.FC<Props> = () => {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    const currentStorage = localStorage.getItem('orders')
-    setOrderItems(currentStorage ? JSON.parse(currentStorage) : orders)
-  }, [orderItems])
+    if (listUpdates) {
+      const currentStorage = localStorage.getItem('orders')
+      setOrderItems(currentStorage ? JSON.parse(currentStorage) : orders)
+      setListUpdates(false)
+    }
+  }, [listUpdates])
 
   const handleAdd = () => {
     const order = {
@@ -34,6 +38,8 @@ const InventoryOrders: React.FC<Props> = () => {
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray.push(order)
     localStorage.setItem('orders', JSON.stringify(newArray))
+    
+    setListUpdates(true)
   }
 
   const handleApproval = (order: any) => {
@@ -47,6 +53,7 @@ const InventoryOrders: React.FC<Props> = () => {
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray = orderItems
     localStorage.setItem('orders', JSON.stringify(newArray))
+    setListUpdates(true)
   }
 
   const handleDelete = (order: any) => {
@@ -60,6 +67,7 @@ const InventoryOrders: React.FC<Props> = () => {
     let newArray = storedItems ? JSON.parse(storedItems) : []
     newArray = orderItems
     localStorage.setItem('orders', JSON.stringify(newArray))
+    setListUpdates(true)
   }
 
   return (
